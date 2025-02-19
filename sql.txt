@@ -1,0 +1,16 @@
+CREATE TABLE authors (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL CHECK (LENGTH(name) BETWEEN 1 AND 50)
+);
+
+CREATE TABLE books (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(50) NOT NULL CHECK (LENGTH(title) BETWEEN 1 AND 50),
+    author_id INT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+
+SELECT a.id, a.name, b.title
+FROM authors a
+JOIN books b ON a.id = b.author_id
+WHERE a.name = 'Konstantin Terskikh';
